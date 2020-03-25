@@ -1,5 +1,6 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exception.FetchPackageException;
 import cn.xpbootcamp.gilded_rose.exception.StorePackageException;
 import cn.xpbootcamp.gilded_rose.model.Locker;
 import cn.xpbootcamp.gilded_rose.model.Package;
@@ -51,6 +52,18 @@ public class LockerTest {
         locker.fetch(packageTicket);
         //then
         Assertions.assertEquals(locker.getAvailableCapacity(), 1);
+
+    }
+
+    @Test
+    void should_throw_exception_when_illegal_ticket_to_fetch_package() {
+        //given
+        Locker locker = new Locker(1);
+        Package beStoredPackage = new Package();
+        locker.store(beStoredPackage);
+        Ticket illegalTicket = new Ticket();
+        //when
+        Assertions.assertThrows(FetchPackageException.class, () -> locker.fetch(illegalTicket));
 
     }
 }
