@@ -62,8 +62,20 @@ public class LockerTest {
         Package beStoredPackage = new Package();
         locker.store(beStoredPackage);
         Ticket illegalTicket = new Ticket();
-        //when
+        //when,then
         Assertions.assertThrows(FetchPackageException.class, () -> locker.fetch(illegalTicket));
 
+    }
+
+    @Test
+    void should_throw_exception_when_ticket_have_been_fetch_package() {
+        //given
+        Locker locker = new Locker(1);
+        Package beStoredPackage = new Package();
+        Ticket packageTicket = locker.store(beStoredPackage);
+        //when
+        locker.fetch(packageTicket);
+        //then,double fetch
+        Assertions.assertThrows(FetchPackageException.class, () -> locker.fetch(packageTicket));
     }
 }

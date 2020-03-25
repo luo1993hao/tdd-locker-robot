@@ -24,6 +24,7 @@ public class Locker {
             throw new StorePackageException("locker is full");
         }
         this.availableCapacity = this.availableCapacity - 1;
+        //todo bad smell
         Ticket ticket = new Ticket();
         storeTicketPackages.add(new Pair<>(ticket, beStoredPackage));
         return ticket;
@@ -39,6 +40,7 @@ public class Locker {
         Optional<Package> packageOptional = this.storeTicketPackages.stream().filter(x -> x.getKey().getId().equals(packageTicket.getId())).map(Pair::getValue).findFirst();
         if (packageOptional.isPresent()) {
             this.availableCapacity = this.availableCapacity + 1;
+            this.storeTicketPackages.remove(new Pair<>(packageTicket, packageOptional.get()));
         } else {
             throw new FetchPackageException("illegal ticket");
         }
