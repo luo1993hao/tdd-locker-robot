@@ -18,12 +18,12 @@ public class LockerTest {
         //when
         Ticket packageTicket = locker.store(beStoredPackage);
         //then
-        int nowLockerAvailableCapacity = locker.getCapacity();
+        int nowLockerAvailableCapacity = locker.getAvailableCapacity();
         Assertions.assertEquals(nowLockerAvailableCapacity, 4);
         Assertions.assertNotNull(packageTicket);
     }
 
-    @Test()
+    @Test
     void should_throw_exception_when_store_package_but_locker_available_capacity_is_zero() {
         //given
         Locker locker = new Locker(1);
@@ -33,6 +33,24 @@ public class LockerTest {
         //then
         Assertions.assertThrows(StorePackageException.class, () -> locker.store(beStoredPackage));
 
+    }
+
+    //todo
+    @Test
+    void should_throw_exception_when_locker_total_capacity_is_less_than_zero() {
+
+    }
+
+    @Test
+    void should_fetch_package_success_and_locker_available_capacity_increase_1_when_ticket_is_legal() {
+        //given
+        Locker locker = new Locker(1);
+        Package beStoredPackage = new Package();
+        Ticket packageTicket = locker.store(beStoredPackage);
+        //when
+        locker.fetch(packageTicket);
+        //then
+        Assertions.assertEquals(locker.getAvailableCapacity(), 1);
 
     }
 }
