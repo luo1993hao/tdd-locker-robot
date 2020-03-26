@@ -40,4 +40,15 @@ public class LockerTest {
     Assertions.assertThrows(StoreParcelException.class, () -> locker.store(parcel));
   }
 
+  @Test
+  void should_collect_parcel_when_ticket_is_legal() {
+    //Given
+    Locker locker = new Locker(20, 10);
+    Parcel parcel = new Parcel();
+    Ticket ticket = locker.store(parcel);
+    //When
+    Parcel collectedParcel = locker.collect(ticket);
+    //Then
+    Assertions.assertEquals(parcel, collectedParcel);
+  }
 }
