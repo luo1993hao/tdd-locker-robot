@@ -35,7 +35,9 @@ public class Locker {
     for (Ticket t : storeInformation.keySet()) {
       if (t.getId().equals(ticket.getId())) {
         this.availableCapacity = this.availableCapacity + 1;
-        return storeInformation.get(t);
+        Parcel collectedParcel = storeInformation.get(t);
+        storeInformation.remove(t);
+        return collectedParcel;
       }
     }
     throw new CollectParcelException("ticket is illegal");

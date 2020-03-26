@@ -1,5 +1,6 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exception.CollectParcelException;
 import cn.xpbootcamp.gilded_rose.exception.StoreParcelException;
 import cn.xpbootcamp.gilded_rose.model.Locker;
 import cn.xpbootcamp.gilded_rose.model.Parcel;
@@ -66,6 +67,18 @@ public class LockerTest {
     int newAvailableCapacity = locker.getAvailableCapacity();
     //Then
     Assertions.assertEquals(10, newAvailableCapacity);
+  }
+
+  @Test
+  void should_throw_exception_when_ticket_is_illegal() {
+    //Given
+    Locker locker = new Locker(20, 10);
+    Parcel parcel = new Parcel();
+    Ticket ticket = locker.store(parcel);
+    //When
+    locker.collect(ticket);
+    //Then
+    Assertions.assertThrows(CollectParcelException.class, () -> locker.collect(ticket));
   }
 
 
