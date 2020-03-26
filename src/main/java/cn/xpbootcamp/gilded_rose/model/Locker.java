@@ -11,10 +11,17 @@ public class Locker {
   private int availableCapacity;
   private Map<Ticket, Parcel> storeInformation;
 
-  public Locker(int capacity, int availableCapacity) {
+  private Locker(int capacity, int availableCapacity) {
     this.capacity = capacity;
     this.availableCapacity = availableCapacity;
     this.storeInformation = new HashMap<>();
+  }
+
+  public static Locker constructLocker(int capacity, int availableCapacity) {
+    if (availableCapacity >=0 && availableCapacity <= capacity) {
+      return new Locker(capacity, availableCapacity);
+    }
+    throw new RuntimeException("argument is illegal");
   }
 
   public Ticket store(Parcel parcel) {

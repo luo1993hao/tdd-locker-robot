@@ -13,7 +13,7 @@ public class LockerTest {
   void should_return_ticket_when_locker_available_capacity_is_not_zero() {
     //Given
     Parcel parcel = new Parcel();
-    Locker locker = new Locker(20, 20);
+    Locker locker = Locker.constructLocker(20, 20);
     //When
     Ticket ticket = locker.store(parcel);
     //Then
@@ -24,7 +24,7 @@ public class LockerTest {
   void should_locker_available_capacity_decrease_1_when_locker_available_capacity_is_not_zero() {
     //Given
     Parcel parcel = new Parcel();
-    Locker locker = new Locker(20, 20);
+    Locker locker = Locker.constructLocker(20, 20);
     //When
     locker.store(parcel);
     int availableCapacity = locker.getAvailableCapacity();
@@ -36,7 +36,7 @@ public class LockerTest {
   void should_throw_exception_when_store_parcel_and_locker_available_capacity_is_zero() {
     //Given
     Parcel parcel = new Parcel();
-    Locker locker = new Locker(20, 0);
+    Locker locker = Locker.constructLocker(20, 0);
     //When Then
     Assertions.assertThrows(StoreParcelException.class, () -> locker.store(parcel));
   }
@@ -44,7 +44,7 @@ public class LockerTest {
   @Test
   void should_collect_parcel_when_ticket_is_legal() {
     //Given
-    Locker locker = new Locker(20, 10);
+    Locker locker = Locker.constructLocker(20, 10);
     Parcel parcel = new Parcel();
     Ticket ticket = locker.store(parcel);
     //When
@@ -56,7 +56,7 @@ public class LockerTest {
   @Test
   void should_locker_available_capacity_increase_1_when_ticket_is_legal() {
     //Given
-    Locker locker = new Locker(20, 10);
+    Locker locker = Locker.constructLocker(20, 10);
     Parcel parcel = new Parcel();
     Ticket ticket = locker.store(parcel);
     int availableCapacity = locker.getAvailableCapacity();
@@ -72,7 +72,7 @@ public class LockerTest {
   @Test
   void should_throw_exception_when_ticket_is_illegal() {
     //Given
-    Locker locker = new Locker(20, 10);
+    Locker locker = Locker.constructLocker(20, 10);
     Parcel parcel = new Parcel();
     Ticket ticket = locker.store(parcel);
     //When
@@ -80,6 +80,5 @@ public class LockerTest {
     //Then
     Assertions.assertThrows(CollectParcelException.class, () -> locker.collect(ticket));
   }
-
 
 }
