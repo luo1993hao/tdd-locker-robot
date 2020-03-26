@@ -4,6 +4,9 @@ import cn.xpbootcamp.gilded_rose.exception.CollectParcelException;
 import cn.xpbootcamp.gilded_rose.exception.StoreParcelException;
 import cn.xpbootcamp.gilded_rose.model.Locker;
 import cn.xpbootcamp.gilded_rose.model.Parcel;
+import cn.xpbootcamp.gilded_rose.exception.FetchPackageException;
+import cn.xpbootcamp.gilded_rose.exception.StorePackageException;
+import cn.xpbootcamp.gilded_rose.model.Package;
 import cn.xpbootcamp.gilded_rose.model.Ticket;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -80,5 +83,4 @@ public class LockerTest {
     //Then
     Assertions.assertThrows(CollectParcelException.class, () -> locker.collect(ticket));
   }
-
 }
