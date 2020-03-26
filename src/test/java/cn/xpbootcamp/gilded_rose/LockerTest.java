@@ -52,6 +52,21 @@ public class LockerTest {
     Assertions.assertEquals(parcel, collectedParcel);
   }
 
+  @Test
+  void should_locker_available_capacity_increase_1_when_ticket_is_legal() {
+    //Given
+    Locker locker = new Locker(20, 10);
+    Parcel parcel = new Parcel();
+    Ticket ticket = locker.store(parcel);
+    int availableCapacity = locker.getAvailableCapacity();
+
+    Assertions.assertEquals(9, availableCapacity);
+    //When
+    locker.collect(ticket);
+    int newAvailableCapacity = locker.getAvailableCapacity();
+    //Then
+    Assertions.assertEquals(10, newAvailableCapacity);
+  }
 
 
 }

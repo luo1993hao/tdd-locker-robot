@@ -34,6 +34,7 @@ public class Locker {
   public Parcel collect(Ticket ticket) {
     for (Ticket t : storeInformation.keySet()) {
       if (t.getId().equals(ticket.getId())) {
+        this.availableCapacity = this.availableCapacity + 1;
         return storeInformation.get(t);
       }
     }
