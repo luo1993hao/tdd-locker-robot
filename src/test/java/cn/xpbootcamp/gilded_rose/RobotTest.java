@@ -34,4 +34,21 @@ public class RobotTest {
         Assertions.assertEquals(9, secondLocker.getAvailableCapacity());
     }
 
+    @Test
+    void should_store_in_first_one_and_return_ticket_when_store_parcel_given_parcel_and_both_of_two_locker_capacity_is_10_robot() {
+        //given
+        Robot robot = new Robot(Lists.newArrayList(new Locker(10), new Locker(10)));
+        Parcel beStoreParcel = new Parcel();
+
+        //when
+        Ticket ticket = robot.store(beStoreParcel);
+        //then
+        Assertions.assertNotNull(ticket);
+        Locker firstLocker = robot.getLockers().get(0);
+        Locker secondLocker = robot.getLockers().get(1);
+        Assertions.assertEquals(9, firstLocker.getAvailableCapacity());
+        Assertions.assertEquals(10, secondLocker.getAvailableCapacity());
+
+    }
+
 }
