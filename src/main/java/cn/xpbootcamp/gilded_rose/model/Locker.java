@@ -28,6 +28,10 @@ public class Locker {
         return ticket;
     }
 
+    public boolean isAvailable() {
+        return availableCapacity > 0;
+    }
+
     public int getAvailableCapacity() {
         return availableCapacity;
     }
