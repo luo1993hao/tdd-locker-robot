@@ -2,9 +2,9 @@
 
 ### 存成功
 
-- Given parcel, lockers and robot, when capacity available, then save successfully and return ticket.
-- Given parcel, two lockers(the first one is full and second one available) and robot, when save parcel, then package should in the second one and return ticket.
-- Given parcel, two lockers(both of two are available) and robot, when save parcel, then parcel should in the first one and return ticket.
+- Given parcel, lockers and robot, when capacity is 10, then save successfully and return ticket.
+- Given parcel, two lockers(the first one is full and second one capacity is 10) and robot, when save parcel, then package should in the second one and return ticket.
+- Given parcel, two lockers(both of two capacity are 10) and robot, when save parcel, then parcel should in the first one and return ticket.
 
 ### 存失败
 
