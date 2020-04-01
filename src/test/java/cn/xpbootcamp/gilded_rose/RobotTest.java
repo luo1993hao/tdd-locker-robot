@@ -1,5 +1,6 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exception.StoreParcelException;
 import cn.xpbootcamp.gilded_rose.model.Locker;
 import cn.xpbootcamp.gilded_rose.model.Parcel;
 import cn.xpbootcamp.gilded_rose.model.Robot;
@@ -48,7 +49,15 @@ public class RobotTest {
         Locker secondLocker = robot.getLockers().get(1);
         Assertions.assertEquals(9, firstLocker.getAvailableCapacity());
         Assertions.assertEquals(10, secondLocker.getAvailableCapacity());
+    }
 
+    @Test
+    void should_throw_exception_when_store_parcel_given_parcel_and_two_locker_capacity_is_0_robot() {
+        //given
+        Robot robot = new Robot(Lists.newArrayList(new Locker(0), new Locker(0)));
+        Parcel beStoreParcel = new Parcel();
+        //when,then
+        Assertions.assertThrows(StoreParcelException.class, () -> robot.store(beStoreParcel));
     }
 
 }

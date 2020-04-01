@@ -8,7 +8,7 @@
 
 ### 存失败
 
-- Given parcel, lockers(all full, capacity run out) and  robot, when save parcel, then save fail throw exception. 
+- Given parcel, two lockers(capacity run out)) and  robot, when save parcel, then save fail throw exception. 
 
 ## 取
 
