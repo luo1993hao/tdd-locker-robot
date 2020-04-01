@@ -1,5 +1,6 @@
 package cn.xpbootcamp.gilded_rose.model;
 
+import cn.xpbootcamp.gilded_rose.exception.CollectParcelException;
 import cn.xpbootcamp.gilded_rose.exception.StoreParcelException;
 
 import java.util.List;
@@ -25,4 +26,12 @@ public class Robot {
         throw new StoreParcelException("locker is full");
     }
 
+
+    public Parcel collect(Ticket ticket) {
+        Optional<Parcel> ticketParcel = lockers.stream().map(x -> x.collect(ticket)).findFirst();
+        if (ticketParcel.isPresent()) {
+            return ticketParcel.get();
+        }
+        throw new CollectParcelException("ticket is illegal");
+    }
 }

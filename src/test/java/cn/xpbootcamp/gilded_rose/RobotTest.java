@@ -60,4 +60,17 @@ public class RobotTest {
         Assertions.assertThrows(StoreParcelException.class, () -> robot.store(beStoreParcel));
     }
 
+    @Test
+    void should_return_parcel_when_collect_parcel_given_valid_ticket_and_robot() {
+        //given
+        Robot robot = new Robot(Lists.newArrayList(new Locker(10)));
+        Parcel beStoreParcel = new Parcel();
+        Ticket ticket = robot.store(beStoreParcel);
+        //when
+        Parcel collectParcel = robot.collect(ticket);
+        //then
+        Assertions.assertEquals(beStoreParcel, collectParcel);
+    }
+
+
 }

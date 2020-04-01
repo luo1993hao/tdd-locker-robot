@@ -14,7 +14,7 @@
 
 ### 取成功
 
-- Given ticket(valid), lockers and robot, when take parcel, then return parcel and invalidate ticket
+- Given ticket(valid), lockers and robot, when take parcel, then return parcel 
 
 ### 取失败
 

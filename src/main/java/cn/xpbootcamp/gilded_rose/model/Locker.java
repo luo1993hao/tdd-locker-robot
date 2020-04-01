@@ -5,6 +5,7 @@ import cn.xpbootcamp.gilded_rose.exception.StoreParcelException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Locker {
     private int capacity;
@@ -37,14 +38,14 @@ public class Locker {
     }
 
     public Parcel collect(Ticket ticket) {
-        for (Ticket t : storeInformation.keySet()) {
-            if (t.getId().equals(ticket.getId())) {
-                this.availableCapacity = this.availableCapacity + 1;
-                Parcel collectedParcel = storeInformation.get(t);
-                storeInformation.remove(t);
-                return collectedParcel;
-            }
+        Parcel collectedParcel = storeInformation.get(ticket);
+        if (Objects.nonNull(collectedParcel)) {
+            this.availableCapacity = this.availableCapacity + 1;
+            storeInformation.remove(ticket);
+            return collectedParcel;
+
         }
         throw new CollectParcelException("ticket is illegal");
     }
+
 }
