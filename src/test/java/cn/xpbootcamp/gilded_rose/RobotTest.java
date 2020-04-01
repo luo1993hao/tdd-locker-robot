@@ -1,5 +1,6 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exception.CollectParcelException;
 import cn.xpbootcamp.gilded_rose.exception.StoreParcelException;
 import cn.xpbootcamp.gilded_rose.model.Locker;
 import cn.xpbootcamp.gilded_rose.model.Parcel;
@@ -63,7 +64,7 @@ public class RobotTest {
     @Test
     void should_return_parcel_when_collect_parcel_given_valid_ticket_and_robot() {
         //given
-        Robot robot = new Robot(Lists.newArrayList(new Locker(10)));
+        Robot robot = new Robot(Lists.newArrayList(new Locker(0), new Locker(10)));
         Parcel beStoreParcel = new Parcel();
         Ticket ticket = robot.store(beStoreParcel);
         //when
@@ -72,5 +73,16 @@ public class RobotTest {
         Assertions.assertEquals(beStoreParcel, collectParcel);
     }
 
+    //TODO 有没有有没有必要分开测1个robot以及2个robot
+    @Test
+    void should_throw_exception_when_collect_parcel_given_invalided_ticket_and_robot() {
+        //given
+        Robot robot = new Robot(Lists.newArrayList(new Locker(0), new Locker(10)));
+        Parcel beStoreParcel = new Parcel();
+        robot.store(beStoreParcel);
+        Ticket invalidedTicket = new Ticket();
+        //when,then
+        Assertions.assertThrows(CollectParcelException.class, () -> robot.collect(invalidedTicket));
+    }
 
 }

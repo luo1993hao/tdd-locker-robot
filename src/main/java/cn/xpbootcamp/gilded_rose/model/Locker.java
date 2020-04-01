@@ -33,6 +33,10 @@ public class Locker {
         return availableCapacity > 0;
     }
 
+    public boolean isTicketValid(Ticket ticket) {
+        return Objects.nonNull(storeInformation.get(ticket));
+    }
+
     public int getAvailableCapacity() {
         return availableCapacity;
     }

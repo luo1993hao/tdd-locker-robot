@@ -28,7 +28,9 @@ public class Robot {
 
 
     public Parcel collect(Ticket ticket) {
-        Optional<Parcel> ticketParcel = lockers.stream().map(x -> x.collect(ticket)).findFirst();
+        Optional<Parcel> ticketParcel = lockers.stream()
+                .filter(x -> x.isTicketValid(ticket))
+                .map(x -> x.collect(ticket)).findFirst();
         if (ticketParcel.isPresent()) {
             return ticketParcel.get();
         }
