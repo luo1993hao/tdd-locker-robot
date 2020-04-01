@@ -13,9 +13,11 @@ public class Robot {
         this.lockers = lockers;
     }
 
-    public Ticket store(Parcel beStoreParcel) {
+    public List<Locker> getLockers() {
+        return lockers;
+    }
 
-        //store
+    public Ticket store(Parcel beStoreParcel) {
         Optional<Locker> firstAvailableLocker = lockers.stream().filter(Locker::isAvailable).findFirst();
         if (firstAvailableLocker.isPresent()) {
             return firstAvailableLocker.get().store(beStoreParcel);
