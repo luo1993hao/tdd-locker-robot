@@ -23,7 +23,7 @@ public class Robot {
         if (firstAvailableLocker.isPresent()) {
             return firstAvailableLocker.get().store(beStoreParcel);
         }
-        throw new StoreParcelException("locker is full");
+        throw new StoreParcelException("lockers are full");
     }
 
 

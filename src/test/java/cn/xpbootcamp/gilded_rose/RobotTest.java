@@ -76,16 +76,16 @@ public class RobotTest {
     }
 
     @Test
-      void should_return_parcel_when_collect_parcel_given_valid_ticket_and_robot() {
-          //given
-          Robot robot = new Robot(Lists.newArrayList(new Locker(0), new Locker(10)));
-          Parcel beStoreParcel = new Parcel();
-          Ticket ticket = robot.store(beStoreParcel);
-          //when
-          Parcel collectParcel = robot.collect(ticket);
-          //then
-          Assertions.assertEquals(beStoreParcel, collectParcel);
-      }
+    void should_return_parcel_when_collect_parcel_given_valid_ticket_and_robot() {
+        //given
+        Robot robot = new Robot(Lists.newArrayList(new Locker(0), new Locker(10)));
+        Parcel beStoreParcel = new Parcel();
+        Ticket ticket = robot.store(beStoreParcel);
+        //when
+        Parcel collectParcel = robot.collect(ticket);
+        //then
+        Assertions.assertEquals(beStoreParcel, collectParcel);
+    }
 
     @Test
     void should_throw_exception_when_collect_parcel_given_invalided_ticket_and_robot() {
@@ -97,5 +97,4 @@ public class RobotTest {
         //when,then
         Assertions.assertThrows(CollectParcelException.class, () -> robot.collect(invalidedTicket));
     }
-
 }
