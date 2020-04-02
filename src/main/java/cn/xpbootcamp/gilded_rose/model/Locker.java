@@ -18,12 +18,11 @@ public class Locker {
         this.storeInformation = new HashMap<>();
     }
 
-
     public Ticket store(Parcel parcel) {
         if (this.availableCapacity <= 0) {
             throw new StoreParcelException("locker is full");
         }
-        this.availableCapacity = this.availableCapacity - 1;
+        this.availableCapacity -= 1;
         Ticket ticket = new Ticket();
         storeInformation.put(ticket, parcel);
         return ticket;
@@ -44,10 +43,9 @@ public class Locker {
     public Parcel collect(Ticket ticket) {
         Parcel collectedParcel = storeInformation.get(ticket);
         if (Objects.nonNull(collectedParcel)) {
-            this.availableCapacity = this.availableCapacity + 1;
+            this.availableCapacity += 1;
             storeInformation.remove(ticket);
             return collectedParcel;
-
         }
         throw new CollectParcelException("ticket is illegal");
     }

@@ -2,20 +2,50 @@
 
 ### 存成功
 
-- Given parcel, lockers and robot, when capacity is 10, then save successfully and return ticket.
-- Given parcel, two lockers(the first one is full and second one capacity is 10) and robot, when save parcel, then package should in the second one and return ticket.
-- Given parcel, two lockers(both of two capacity are 10) and robot, when save parcel, then parcel should in the first one and return ticket.
+- Given 包裹，一个可用容量为10的储物柜，机器人 
+  When 存包 
+  Then 存成功并返回票据
+
+- Given 包裹，一个可用容量为0和另一个可用容量为10的储物柜，机器人 
+
+  When 存包 
+
+  Then 存到第二个储物柜并返回票据
+
+- Given 包裹，两个可用容量都为10的储物柜，机器人
+
+  When 存包 
+
+  Then 存到第一个储物柜并返回票据
 
 ### 存失败
 
-- Given parcel, two lockers(capacity run out)) and  robot, when save parcel, then save fail throw exception. 
+- Given 两个包裹，两个可用容量都为0储物柜，机器人 
+
+  When 存包 
+
+  Then 存失败并抛出异常
+
+- Given 两个包裹，一个可用容量为1和另一个可用容量为0的储物柜，机器人 
+
+  When 存包 
+
+  Then 第一个包裹存在第一个储物柜中并返回票据第二个包裹存失败并抛出异常
 
 ## 取
 
 ### 取成功
 
-- Given ticket(valid), lockers and robot, when take parcel, then return parcel 
+- Given 有效票据，储物柜，机器人
+
+  When 取包
+
+  Then 得到包裹
 
 ### 取失败
 
-- Given ticket(invalided), lockers and robot, when take parcel, then take fail throw exception
+- Given 无效票据，储物柜，机器人
+
+  When 取包
+
+  Then 取出失败并抛出异常
