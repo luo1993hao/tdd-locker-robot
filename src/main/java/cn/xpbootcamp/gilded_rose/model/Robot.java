@@ -20,11 +20,8 @@ public class Robot {
     return lockers;
   }
 
-  public Ticket smartStore(Parcel beStoreParcel) {
-    List<Locker> comparedList = lockers.stream()
-      .sorted((Comparator<Locker>) (o1, o2) -> o2.getAvailableCapacity() - o1.getAvailableCapacity())
-      .collect(Collectors.toList());
-    Optional<Locker> firstAvailableLocker = comparedList.stream().filter(Locker::isAvailable).findFirst();
+  public Ticket store(Parcel beStoreParcel) {
+    Optional<Locker> firstAvailableLocker = lockers.stream().filter(Locker::isAvailable).findFirst();
     if (firstAvailableLocker.isPresent()) {
       return firstAvailableLocker.get().store(beStoreParcel);
     }
