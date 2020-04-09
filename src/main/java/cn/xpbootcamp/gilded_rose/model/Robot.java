@@ -20,7 +20,7 @@ public class Robot {
     return lockers;
   }
 
-  public Ticket store(Parcel beStoreParcel) {
+  public Ticket smartStore(Parcel beStoreParcel) {
     List<Locker> comparedList = lockers.stream()
       .sorted((Comparator<Locker>) (o1, o2) -> o2.getAvailableCapacity() - o1.getAvailableCapacity())
       .collect(Collectors.toList());

@@ -17,7 +17,7 @@ public class RobotTest {
     Robot robot = new Robot(Lists.newArrayList(new Locker(10)));
     Parcel beStoreParcel = new Parcel();
     //when
-    Ticket ticket = robot.store(beStoreParcel);
+    Ticket ticket = robot.smartStore(beStoreParcel);
     //then
     Assertions.assertNotNull(ticket);
   }
@@ -29,7 +29,7 @@ public class RobotTest {
     Parcel beStoreParcel = new Parcel();
 
     //when
-    Ticket ticket = robot.store(beStoreParcel);
+    Ticket ticket = robot.smartStore(beStoreParcel);
     //then
     Assertions.assertNotNull(ticket);
     Locker secondLocker = robot.getLockers().get(1);
@@ -43,7 +43,7 @@ public class RobotTest {
     Parcel beStoreParcel = new Parcel();
 
     //when
-    Ticket ticket = robot.store(beStoreParcel);
+    Ticket ticket = robot.smartStore(beStoreParcel);
     //then
     Assertions.assertNotNull(ticket);
     Locker secondLocker = robot.getLockers().get(1);
@@ -57,7 +57,7 @@ public class RobotTest {
     Parcel beStoreParcel = new Parcel();
 
     //when
-    Ticket ticket = robot.store(beStoreParcel);
+    Ticket ticket = robot.smartStore(beStoreParcel);
     //then
     Assertions.assertNotNull(ticket);
     Locker firstLocker = robot.getLockers().get(0);
@@ -72,7 +72,7 @@ public class RobotTest {
     Robot robot = new Robot(Lists.newArrayList(new Locker(0), new Locker(0)));
     Parcel beStoreParcel = new Parcel();
     //when,then
-    Assertions.assertThrows(StoreParcelException.class, () -> robot.store(beStoreParcel));
+    Assertions.assertThrows(StoreParcelException.class, () -> robot.smartStore(beStoreParcel));
   }
 
   @Test
@@ -82,11 +82,11 @@ public class RobotTest {
     Parcel beStoreParcel = new Parcel();
     Parcel failedParcel = new Parcel();
     //when
-    robot.store(beStoreParcel);
+    robot.smartStore(beStoreParcel);
     //then
     Locker firstLocker = robot.getLockers().get(0);
     Assertions.assertEquals(0, firstLocker.getAvailableCapacity());
-    Assertions.assertThrows(StoreParcelException.class, () -> robot.store(failedParcel));
+    Assertions.assertThrows(StoreParcelException.class, () -> robot.smartStore(failedParcel));
   }
 
   @Test
@@ -94,7 +94,7 @@ public class RobotTest {
     //given
     Robot robot = new Robot(Lists.newArrayList(new Locker(0), new Locker(10)));
     Parcel beStoreParcel = new Parcel();
-    Ticket ticket = robot.store(beStoreParcel);
+    Ticket ticket = robot.smartStore(beStoreParcel);
     //when
     Parcel collectParcel = robot.collect(ticket);
     //then
@@ -106,7 +106,7 @@ public class RobotTest {
     //given
     Robot robot = new Robot(Lists.newArrayList(new Locker(0), new Locker(10)));
     Parcel beStoreParcel = new Parcel();
-    robot.store(beStoreParcel);
+    robot.smartStore(beStoreParcel);
     Ticket invalidedTicket = new Ticket();
     //when,then
     Assertions.assertThrows(CollectParcelException.class, () -> robot.collect(invalidedTicket));
