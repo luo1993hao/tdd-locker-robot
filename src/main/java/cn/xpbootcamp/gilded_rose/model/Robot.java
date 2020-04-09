@@ -10,43 +10,34 @@ import java.util.stream.Collectors;
 
 public class Robot {
 
-    private List<Locker> lockers;
+  private List<Locker> lockers;
 
-    public Robot(List<Locker> lockers) {
-        this.lockers = lockers;
+  public Robot(List<Locker> lockers) {
+    this.lockers = lockers;
+  }
+
+  public List<Locker> getLockers() {
+    return lockers;
+  }
+
+  public Ticket smartStore(Parcel beStoreParcel) {
+    List<Locker> comparedList = lockers.stream()
+      .sorted((Comparator<Locker>) (o1, o2) -> o2.getAvailableCapacity() - o1.getAvailableCapacity())
+      .collect(Collectors.toList());
+    Optional<Locker> firstAvailableLocker = comparedList.stream().filter(Locker::isAvailable).findFirst();
+    if (firstAvailableLocker.isPresent()) {
+      return firstAvailableLocker.get().store(beStoreParcel);
     }
+    throw new StoreParcelException("lockers are full");
+  }
 
-    public List<Locker> getLockers() {
-        return lockers;
+  public Parcel collect(Ticket ticket) {
+    Optional<Parcel> ticketParcel = lockers.stream()
+      .filter(x -> x.isTicketValid(ticket))
+      .map(x -> x.collect(ticket)).findFirst();
+    if (ticketParcel.isPresent()) {
+      return ticketParcel.get();
     }
-
-    public Ticket store(Parcel beStoreParcel) {
-        Optional<Locker> firstAvailableLocker = lockers.stream().filter(Locker::isAvailable).findFirst();
-        if (firstAvailableLocker.isPresent()) {
-            return firstAvailableLocker.get().store(beStoreParcel);
-        }
-        throw new StoreParcelException("lockers are full");
-    }
-
-    public Parcel collect(Ticket ticket) {
-        Optional<Parcel> ticketParcel = lockers.stream()
-                .filter(x -> x.isTicketValid(ticket))
-                .map(x -> x.collect(ticket)).findFirst();
-        if (ticketParcel.isPresent()) {
-            return ticketParcel.get();
-        }
-        throw new CollectParcelException("ticket is illegal");
-    }
-
-    public Ticket smartStore(Parcel beStoreParcel) {
-      List<Locker> comparedList = lockers.stream()
-        .sorted((Comparator<Locker>) (o1, o2) -> o2.getAvailableCapacity() - o1.getAvailableCapacity())
-        .collect(Collectors.toList());
-      Optional<Locker> firstAvailableLocker = comparedList.stream().filter(Locker::isAvailable).findFirst();
-      if (firstAvailableLocker.isPresent()) {
-        return firstAvailableLocker.get().store(beStoreParcel);
-      }
-      throw new StoreParcelException("lockers are full");
-
-    }
+    throw new CollectParcelException("ticket is illegal");
+  }
 }
