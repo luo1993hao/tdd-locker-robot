@@ -6,6 +6,7 @@ import cn.xpbootcamp.gilded_rose.exception.StoreParcelException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Robot {
 
@@ -38,8 +39,10 @@ public class Robot {
     }
 
     public Ticket smartStore(Parcel beStoreParcel) {
-      lockers.sort((Comparator<Locker>) (o1, o2) -> o2.getAvailableCapacity() - o1.getAvailableCapacity());
-      Optional<Locker> firstAvailableLocker = lockers.stream().filter(Locker::isAvailable).findFirst();
+      List<Locker> comparedList = lockers.stream()
+        .sorted((Comparator<Locker>) (o1, o2) -> o2.getAvailableCapacity() - o1.getAvailableCapacity())
+        .collect(Collectors.toList());
+      Optional<Locker> firstAvailableLocker = comparedList.stream().filter(Locker::isAvailable).findFirst();
       if (firstAvailableLocker.isPresent()) {
         return firstAvailableLocker.get().store(beStoreParcel);
       }
