@@ -80,4 +80,9 @@ public class LockerTest {
         //Then
         Assertions.assertThrows(CollectParcelException.class, () -> locker.collect(ticket));
     }
+
+    @Test
+    void name() {
+
+    }
 }
